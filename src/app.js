@@ -1,5 +1,4 @@
 import express from 'express'
-import { userModel } from './models/user.model.js'
 import cookieParser from 'cookie-parser'
 import { authRouter } from './routers/auth.routes.js'
 
