@@ -1,10 +1,11 @@
 import express from 'express'
-import { createMusic } from '../controllers/music.controller.js'
-
+import { createMusicController } from '../controllers/music.controller.js'
+import multer from 'multer'
 
 
 export const musicRouter = express.Router()
 
+const uploadFile = multer({ storage: multer.memoryStorage()})
 
-musicRouter.post('/createmusic', createMusic)
+musicRouter.post('/upload', uploadFile.single('file'), createMusicController)
 
