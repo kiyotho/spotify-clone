@@ -34,3 +34,14 @@ export async function createAlbumController(req, res){
     res.status(201).json({ message: "success", content: newAlbum})
 
 }
+
+
+export async function fetchAllMusicController(req, res){
+
+    const musics = await musicModel.find().populate("artist", "username email")
+
+    res.status(200).json({
+        message: "success",
+        content: musics
+    })
+}
