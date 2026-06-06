@@ -48,10 +48,23 @@ export async function fetchAllMusicController(req, res){
 }
 
 export async function fetchAllAlbumController(req, res){
-    const albums = await albumModel.find().populate('artist', 'username email').populate('musics', 'title' )
+    const albums = await albumModel.find().select('title artist').populate('artist', 'username email')
 
     res.status(200).json({
         message: "success", 
         content: albums
     })
+}
+
+export async function getMusicInAlbumContoller(req, res) {
+
+    const albumId = req.params.id
+
+    const musics = await albumModel.findOne({ _id: albumId}).populate('artist', 'username email').populate("musics", 'title')
+
+    res.status(200).json({
+        message: "success", 
+        content: musics
+    })
+    
 }
