@@ -1,5 +1,5 @@
 import express from 'express'
-import { createMusicController } from '../controllers/music.controller.js'
+import { createMusicController, fetchAllAlbumController } from '../controllers/music.controller.js'
 import multer from 'multer'
 import { createAlbumController } from '../controllers/music.controller.js'
 import { authArtist } from '../middlewares/auth.middleware.js'
@@ -12,3 +12,4 @@ const uploadFile = multer({ storage: multer.memoryStorage()})
 musicRouter.post('/upload', authArtist,  uploadFile.single('file'), createMusicController)
 musicRouter.post('/createalbum', authArtist, createAlbumController)
 musicRouter.get('/', authUser, fetchAllMusicController)
+musicRouter.get('/album', authUser, fetchAllAlbumController)
