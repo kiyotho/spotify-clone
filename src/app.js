@@ -11,5 +11,4 @@ app.use(cookieParser())
 app.use('/api/auth', authRouter)
 app.use('/api/music', musicRouter)
 
-
 export{ app }
