@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
-
+import { uploadFile } from '../services/storage.service.js'
+import { musicModel } from '../models/music.model.js'
 
 
 export async function createMusic(req, res) {
@@ -18,7 +19,10 @@ export async function createMusic(req, res) {
 
     if( decoded.role !== "artist" ) return res.status(401).json({ message: "unauthorized"})
 
+    const { title, description } = req.body
+    const file = req.file
 
+    
 
 
 }
