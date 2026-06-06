@@ -64,3 +64,17 @@ export async function loginUser(req, res){
     })
 
 }
+
+export async function logoutUser(req, res){
+
+    const token = req.cookies.token
+
+    if(!token) return res.status(401).json({
+        message: 'user not logged in'
+    })
+
+    res.clearCookie('token')
+    res.status(200).json({
+        message: 'user loged out sucessfully'
+    })
+}
