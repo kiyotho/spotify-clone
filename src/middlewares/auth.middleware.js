@@ -5,11 +5,11 @@ import 'dotenv/config'
 export async function authArtist(req, res, next){
     const token = req.cookies.token
 
-    if(!token) return res.status(401).json({ message: "access Unauthorized"})
+    if(!token) return res.status(401).json({ message: "access unauthorized"})
 
     try{
 
-        const decoded = await jwt.verify(token, process.env.JWT_SCERET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
         if(decoded.role !== "artist")  return res.status(403).json({ message:"you dont' have access to this endpoint" })
 
         req.user = decoded

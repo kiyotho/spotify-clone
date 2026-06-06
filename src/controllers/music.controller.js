@@ -5,7 +5,7 @@ import { albumModel } from '../models/album.model.js'
 
 export async function createMusicController(req, res) {
 
-    const { title, description, user } = req.body
+    const { title, description } = req.body
     const file = req.file
 
     const uploadedFile = await uploadFile(file.buffer.toString("base64"))
@@ -14,7 +14,7 @@ export async function createMusicController(req, res) {
         uri: uploadedFile.url, 
         title: title, 
         description: description, 
-        artist: user.id
+        artist: req.user.id
     })
 
     res.status(201).json({message: "success", content: uploadedMusic})
@@ -23,11 +23,11 @@ export async function createMusicController(req, res) {
 
 export async function createAlbumController(req, res){
 
-    const {title, musics, user} = req.body
+    const {title, musics} = req.body
 
     const newAlbum = await albumModel.create({
         title: title,
-        artist: user.id,
+        artist: req.user.id,
         musics: musics
     })
 
