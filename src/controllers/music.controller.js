@@ -44,4 +44,5 @@ export async function fetchAllMusicController(req, res){
         message: "success",
         content: musics
     })
+    
 }
