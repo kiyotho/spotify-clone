@@ -1,0 +1,78 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(42, 39, 39);
+    color: whitesmoke;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+
+
+}
+
+input{
+    background-color: transparent;
+    color: whitesmoke;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: transparent;
+    font-size: 16px;
+
+}
+
+.register-container{
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+
+select {
+    appearance: none;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+
+select::picker {
+  border: 2px solid #333;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: max-content;
+}
+
+button{
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.info-text{
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.password-input{
+    width: 360px;
+    margin-right: 2.5px ;
+}

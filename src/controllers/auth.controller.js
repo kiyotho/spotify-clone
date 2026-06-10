@@ -27,7 +27,10 @@ export async function registerUser(req, res) {
     }, process.env.JWT_SECRET)
 
     
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true, 
+        sameSite: 'lax'
+    })
     res.status(201).json({ message: "success", user: newUser})
 
 
