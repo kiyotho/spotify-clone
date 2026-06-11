@@ -31,3 +31,19 @@ section {
     font-size: 13px;
     color: #aaa;
 }
+
+.outer-line{
+    width: 800px;
+    height: 20px;
+    background-color: grey;
+}
+
+.inner-line{
+    background-color: aqua;
+    max-width: 100%;
+    height: 20px;
+}
+
+audio{
+    display: none;
+}
