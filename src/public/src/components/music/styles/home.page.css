@@ -1,0 +1,33 @@
+section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 24px;
+}
+
+.music-card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.music-card:hover {
+    background-color: #2a2a2a;
+}
+
+.music-card p {
+    margin: 4px 0;
+    color: white;
+}
+
+.music-card .title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.music-card .artist {
+    font-size: 13px;
+    color: #aaa;
+}

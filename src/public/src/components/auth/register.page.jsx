@@ -13,7 +13,6 @@ export function RegisterPage(){
 
 
     async function handleSubmit(){
-        console.log(username, email, password, role)
 
         const responce = await fetch('http://localhost:8000/api/auth/register', {
             method: 'POST', 
@@ -30,8 +29,6 @@ export function RegisterPage(){
         })
 
         const data = await responce.json()
-
-        console.log(data)
 
     }
 
