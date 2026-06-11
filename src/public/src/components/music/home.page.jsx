@@ -50,8 +50,8 @@ export function HomePage(){
 
 
     return(
-        <>
-            <section>
+        <div className='app-container'>
+            <section className='content'>
                 {
                     music.length > 0 ? (
                         music.map((element) => (
@@ -68,28 +68,49 @@ export function HomePage(){
                     ) : <h1></h1>
                 }
             </section>
-            <audio ref={audioRef} src={queue[currentIndex]?.uri} autoPlay controls onEnded={() => setCurrentIndex(currentIndex + 1)}/>
-            <button onClick={() => setCurrentIndex(currentIndex - 1)}>Prev</button>
-            <button onClick={() => setCurrentIndex(currentIndex + 1)}>Next</button>
-            <button onClick={() => audioRef.current.pause()}>Pause</button>
-            <button onClick={() => audioRef.current.play()}>Play</button>
-            <input 
-                type="range" 
-                min="0" 
-                max="100" 
-                value={progress} 
-                onChange={(e) => {
-                    const newTime = (e.target.value / 100) * audioRef.current.duration
-                    audioRef.current.currentTime = newTime
-                    setProgress(e.target.value)
-                }}
-            />
-            <p>{currentPoint}:{totalDuration}</p> 
 
+            <div className='player'>
+                <img src={queue[currentIndex]?.albumarturi || 'https://www.svgrepo.com/show/503126/album.svg'} width='200px'/>
+                <audio ref={audioRef} src={queue[currentIndex]?.uri} autoPlay controls onEnded={() => setCurrentIndex(currentIndex + 1)}/>
+                <div>
+                    <button onClick={() => setCurrentIndex(currentIndex - 1)}>Prev</button>
+                    <button onClick={() => setCurrentIndex(currentIndex + 1)}>Next</button>
+                    <button onClick={() => audioRef.current.pause()}>Pause</button>
+                    <button onClick={() => audioRef.current.play()}>Play</button>
+                </div>
+                
+                <div>
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value={progress} 
+                        onChange={(e) => {
+                            const newTime = (e.target.value / 100) * audioRef.current.duration
+                            audioRef.current.currentTime = newTime
+                            setProgress(e.target.value)
+                        }}
+                    />
+                    <p>{currentPoint}:{totalDuration}</p> 
+                </div>
 
-            <section></section>
-            
+                <section>
+                    <h1>Queue</h1>
+                    {
 
-        </>
+                    queue.length > 0? (
+                        queue.map((element, index ) =>(
+                            <div key={index}>
+                                <p style={{ color: index === currentIndex ? 'cyan' : 'white' }}>{element.title}</p>
+                            </div>
+                        ))
+                    ) : <h1>Queue Empty</h1>
+                    
+                    }
+                </section>
+
+            </div>
+        
+        </div>
     )
 }
