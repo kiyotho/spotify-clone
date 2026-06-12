@@ -1,0 +1,18 @@
+
+
+.inputs{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 400px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 240px;
+
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 20px;
+
+}

@@ -35,6 +35,10 @@ export function HomePage(){
     }
     
 
+    function navigateCreatePost(){
+        navigate('/upload')
+    }
+
     useEffect(() => {
 
 
@@ -97,7 +101,7 @@ export function HomePage(){
 
             {/* <div className='profile-logo'>
             </div> */}
-            { role === 'artist'? <button>Create post</button> : <></>}
+            { role === 'artist'? <button onClick={navigateCreatePost}>Create post</button> : <></>}
             <button className='logout-button' onClick={logout}>LOGOUT</button>
             
         </div>

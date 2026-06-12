@@ -18,7 +18,7 @@ export async function authArtist(req, res, next){
     } catch(err){
 
         console.log(err)
-        res.status(401).json({message:'access unauthorized'})
+        res.status(400).json({message:'access unauthorized'})
 
     }
 }
