@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import './styles/home.page.css'
+import { useNavigate } from 'react-router-dom'
+
 
 export function HomePage(){ 
 
@@ -16,7 +18,22 @@ export function HomePage(){
     const audioRef = useRef(null)
     const outerLineRef = useRef(null)
     const innerLineRef = useRef(null)
+    const navigate = useNavigate()
 
+
+    useEffect(() => {
+        const cookies = document.cookie.split(';')
+        for (const item of cookies) {
+            const cleanCookie = item.trim();
+
+            if (cleanCookie.startsWith('islogged_in=')) {
+                return
+            }
+        }
+        navigate('/register');
+    }, [navigate])
+
+    
     useEffect(() => {
         axios.get('http://localhost:8000/api/music/', {
             withCredentials: true 
@@ -106,7 +123,6 @@ export function HomePage(){
                         min='0'
                         max='100'
                         value={volume}
-                        defaultValue='50'
                         onChange={(e) =>{
                             const newVolume = e.target.value / 100
                             audioRef.current.volume = newVolume

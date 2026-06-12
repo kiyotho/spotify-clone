@@ -1,8 +1,11 @@
 import {useState, useRef} from 'react'
+import { useNavigate } from 'react-router-dom'
 import './styles/register.css'
 
 
 export function RegisterPage(){
+
+    const navigate = useNavigate()
 
 
     const [username, setUsername] = useState("")
@@ -12,7 +15,7 @@ export function RegisterPage(){
     const passwordRef = useRef(null)
 
 
-    async function handleSubmit(){
+    async function handleSubmit(){  
 
         const responce = await fetch('http://localhost:8000/api/auth/register', {
             method: 'POST', 
@@ -29,6 +32,10 @@ export function RegisterPage(){
         })
 
         const data = await responce.json()
+
+        if(responce.ok){
+            navigate('/')
+        }
 
     }
 

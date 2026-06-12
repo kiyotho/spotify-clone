@@ -1,13 +1,17 @@
 
-
-import { RegisterPage } from "./components/auth/register.page"
-import { HomePage } from "./components/music/home.page.jsx"
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { RegisterPage } from "./pages/auth/register.page"
+import { HomePage } from "./pages/music/home.page.jsx"
 
 
 
 export function App(){
     return (
-        // < RegisterPage />
-        < HomePage />
+        <Router>
+            <Routes>
+                <Route path='/register' element={<RegisterPage />} />
+                <Route path='/' element={<HomePage />} />
+            </Routes>
+        </Router>
     )
 }

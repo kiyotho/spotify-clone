@@ -31,6 +31,7 @@ export async function registerUser(req, res) {
         httpOnly: true, 
         sameSite: 'lax'
     })
+    res.cookie('islogged_in', 'true')
     res.status(201).json({ message: "success", user: newUser})
 
 
@@ -77,6 +78,8 @@ export async function logoutUser(req, res){
     })
 
     res.clearCookie('token')
+    res.clearCookie('islogged_in')
+    
     res.status(200).json({
         message: 'user loged out sucessfully'
     })
