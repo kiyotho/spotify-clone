@@ -61,6 +61,7 @@ export async function loginUser(req, res){
     }, process.env.JWT_SECRET)
 
     res.cookie("token", token)
+    res.cookie('islogged_in', 'true')
 
     res.status(200).json({ 
         message: "success", 
@@ -83,4 +84,15 @@ export async function logoutUser(req, res){
     res.status(200).json({
         message: 'user loged out sucessfully'
     })
+}
+
+
+export async function me(req, res){
+    const id = req.params.id
+
+    const user = await userModel.findOne({
+        _id: id
+    })
+
+    res.status(200).json({message: 'success', content : user})
 }

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import './styles/home.page.css'
 import { useNavigate } from 'react-router-dom'
+// import { defaultAlbum } from '../../images/disc-digital-tool-symbol-for-music-interface-or-burn-cd-or-dvd-svgrepo-com.svg'
 
 
 export function HomePage(){ 
@@ -19,14 +20,38 @@ export function HomePage(){
     const outerLineRef = useRef(null)
     const innerLineRef = useRef(null)
     const navigate = useNavigate()
+    const [role, setRole] = useState('')
 
+
+    async function logout() {
+
+        const response = await axios.post('http://localhost:8000/api/auth/logout', {}, {
+            withCredentials: true
+        })
+
+        if(response.status === 200) {
+            navigate('/register')
+        }
+    }
+    
 
     useEffect(() => {
+
+
+        async function getRole() {
+            const id = localStorage.getItem('id')
+            const responce = await fetch(`http://localhost:8000/api/auth/me/${id}`)
+            const data = await responce.json()
+      
+            setRole(data.content.role)
+        }
+
         const cookies = document.cookie.split(';')
         for (const item of cookies) {
             const cleanCookie = item.trim();
 
             if (cleanCookie.startsWith('islogged_in=')) {
+                getRole()
                 return
             }
         }
@@ -54,7 +79,7 @@ export function HomePage(){
 
             setCurrentPoint(Math.trunc(audio.currentTime))
             setTotalDuration(Math.trunc(audio.duration))
-            setProgress((currentPoint / totalDuration) * 100)
+            setProgress((audio.currentTime / audio.duration) * 100)
 
         }
 
@@ -64,8 +89,18 @@ export function HomePage(){
         return () => audio.removeEventListener('timeupdate', updateTime)
     }, [queue, currentIndex, currentPoint])
 
-
+    
     return(
+
+        <>
+        <div className='Profile-tool-bar'>
+
+            {/* <div className='profile-logo'>
+            </div> */}
+            { role === 'artist'? <button>Create post</button> : <></>}
+            <button className='logout-button' onClick={logout}>LOGOUT</button>
+            
+        </div>
         <div className='app-container'>
             
             <section className='content'>
@@ -79,7 +114,7 @@ export function HomePage(){
                                                                             }
                                                                         }}>
                                 <img 
-                                    src={element.albumarturi || 'https://www.billboard.com/wp-content/uploads/2023/07/asap-rocky-long-live-asap-2013-billboard-1240.jpg?w=768'} 
+                                    src={element.albumarturi || 'https://www.svgrepo.com/show/124636/disc-digital-tool-symbol-for-music-interface-or-burn-cd-or-dvd.svg'} 
                                     className='card-img'
                                 />
                                 <p className='title'>{element.title}</p>
@@ -92,10 +127,10 @@ export function HomePage(){
 
             
             <div className='player'>
-                <img src={queue[currentIndex]?.albumarturi || 'https://www.billboard.com/wp-content/uploads/2023/07/asap-rocky-long-live-asap-2013-billboard-1240.jpg?w=768'} width='200px' className='discography-img'/>
+                <img src={queue[currentIndex]?.albumarturi || 'https://www.svgrepo.com/show/124636/disc-digital-tool-symbol-for-music-interface-or-burn-cd-or-dvd.svg'} width='200px' className='discography-img'/>
                 <audio ref={audioRef} src={queue[currentIndex]?.uri} autoPlay controls onEnded={() => setCurrentIndex(currentIndex+1 === queue.length ? 0 : currentIndex + 1)}/>
                 <div className='button-container'>
-                    <button onClick={() => setCurrentIndex(currentIndex - 1)}>Prev</button>
+                    <button onClick={() => setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : currentIndex)}>Prev</button>
                     <button onClick={() => audioRef.current.pause()}>Pause</button>
                     <button onClick={() => audioRef.current.play()}>Play</button>
                     <button onClick={() => setCurrentIndex(currentIndex + 1 === queue.length ? 0 : currentIndex + 1)}>Next</button>
@@ -138,7 +173,7 @@ export function HomePage(){
                             queue.length > 0? (
                             queue.map((element, index ) =>(
                                 <div key={index}>
-                                    <p style={{ color: index === currentIndex ? 'cadetblue' : 'white' }}>{element.title}</p>
+                                    <div style={{ color: index === currentIndex ? 'cadetblue' : 'white',  background: index === currentIndex ? '#3f3f3f': '#323232' }} onClick={() => setCurrentIndex(index)} className='queue-item'>{element.title}</div>
                                 </div>
                             ))
                         ) : <h1>Queue Empty</h1>
@@ -148,5 +183,7 @@ export function HomePage(){
             </div>
             
         </div>
+        </>
     )
+    
 }

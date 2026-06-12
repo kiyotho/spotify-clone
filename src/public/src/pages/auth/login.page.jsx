@@ -1,30 +1,26 @@
 import {useState, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
-import './styles/register.css'
+import './styles/login.css'
 
 
-export function RegisterPage(){
+export function LoginPage(){
 
     const navigate = useNavigate()
 
 
     const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [role, setRole] = useState("user")
     const passwordRef = useRef(null)
 
 
     async function handleSubmit(){  
 
-        const responce = await fetch('http://localhost:8000/api/auth/register', {
+        const responce = await fetch('http://localhost:8000/api/auth/login', {
             method: 'POST', 
             credentials: 'include',
             body: JSON.stringify({
                 username: username,
-                email: email, 
-                password: password,
-                role: role
+                password: password
             }), 
             headers: {
                 'Content-Type': 'application/json'
@@ -42,10 +38,6 @@ export function RegisterPage(){
 
     }
 
-    async function handleLogin() {
-        navigate('/login')
-    }
-
     function togglePassword(){
         if(passwordRef.current.type === 'password'){
             passwordRef.current.type = 'text'
@@ -57,23 +49,16 @@ export function RegisterPage(){
 
     return (
         <>
-            <p className='info-text'>Enter your information to make an Account</p>
-            <div className="register-container">
+            <p className='info-text'>Enter your information to Login into your Account</p>
+            <div className="login-container">
                 <input type="text" placeholder="Username" className='input-username' value={username} onChange={ (e) => setUsername(e.target.value)}/>
-                <input type='text' placeholder="Email" className="input-email" value={email} onChange={ (e) => setEmail(e.target.value)}/>
+                
                 <div>
                     <input ref={passwordRef} type="password" placeholder="Password" className="input-password" value={password} onChange={ (e) => setPassword(e.target.value)} className='password-input' />
                     <button onClick={togglePassword}>Show</button>
                 </div>
-                <select name='role' className='role-selector' value={role} onChange={(e) => setRole(e.target.value)}>
-                    <option value='user'>User</option>
-                    <option value='artist'>Artist</option>
-                </select>
 
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-between'}}>
-                    <button onClick={handleLogin} style={{width: '49%'}}>Login</button>
-                    <button onClick={handleSubmit} style={{width: '49%'}}>Sumbit</button>
-                </div>
+                <button onClick={handleSubmit}>Sumbit</button>
             </div>        
         </>
     )
