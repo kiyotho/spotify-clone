@@ -39,7 +39,7 @@ export async function createAlbumController(req, res){
 export async function fetchAllMusicController(req, res){
 
     const musics = await musicModel.find()
-        .limit(10)
+        .limit(20)
         .populate("artist", "username email")
 
     res.status(200).json({
